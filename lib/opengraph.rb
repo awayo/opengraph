@@ -16,10 +16,16 @@ module OpenGraph
   def self.parse(html, strict = true)
     doc = Nokogiri::HTML.parse(html)
     page = OpenGraph::Object.new
+
+    page['title'] = doc.css('title')
+
     doc.css('meta').each do |m|
       puts m.attribute('property')
       puts m
       if m.attribute('property') && m.attribute('property').to_s.match(/^og:(.+)$/i)
+        page[$1.gsub('-','_')] = m.attribute('content').to_s
+      end
+      if m.attribute('name') && m.attribute('name').to_s.match(/^og:(.+)$/i)
         page[$1.gsub('-','_')] = m.attribute('content').to_s
       end
     end
