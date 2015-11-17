@@ -21,6 +21,8 @@ module OpenGraph
         page[$1.gsub('-','_')] = m.attribute('content').to_s
       end
     end
+    puts page
+    puts page.keys
     return false if page.keys.empty?
     return false unless page.valid? if strict
     page
