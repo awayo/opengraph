@@ -17,11 +17,9 @@ module OpenGraph
     doc = Nokogiri::HTML.parse(html)
     page = OpenGraph::Object.new
 
-    page['title'] = doc.css('title').content
+    page['title'] = doc.css('title').text
 
     doc.css('meta').each do |m|
-      puts m.attribute('property')
-      puts m
       if m.attribute('property') && m.attribute('property').to_s.match(/^og:(.+)$/i)
         page[$1.gsub('-','_')] = m.attribute('content').to_s
       end
