@@ -11,8 +11,6 @@ module OpenGraph
   # see invalid (i.e. missing a required attribute) data.
   def self.fetch(uri, strict = true)
     parse(RestClient.get(uri).body, strict)
-  rescue RestClient::Exception, SocketError
-    false
   end
   
   def self.parse(html, strict = true)
