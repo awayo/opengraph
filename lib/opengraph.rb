@@ -16,14 +16,13 @@ module OpenGraph
   def self.parse(html, strict = true)
     doc = Nokogiri::HTML.parse(html)
     page = OpenGraph::Object.new
-    doc.css('meta').each do |m|
+    doc.xpath('//meta').each do |m|
       puts m.attribute('property')
+      puts m
       if m.attribute('property') && m.attribute('property').to_s.match(/^og:(.+)$/i)
         page[$1.gsub('-','_')] = m.attribute('content').to_s
       end
     end
-    puts html
-    puts page.keys
     return false if page.keys.empty?
     return false unless page.valid? if strict
     page
