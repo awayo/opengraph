@@ -17,7 +17,7 @@ module OpenGraph
     doc = Nokogiri::HTML.parse(html)
     page = OpenGraph::Object.new
 
-    page['title'] = doc.css('title')
+    page['title'] = doc.css('title').content
 
     doc.css('meta').each do |m|
       puts m.attribute('property')
