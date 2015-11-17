@@ -16,7 +16,7 @@ module OpenGraph
   def self.parse(html, strict = true)
     doc = Nokogiri::HTML.parse(html)
     page = OpenGraph::Object.new
-    doc.xpath('//meta').each do |m|
+    doc.css('meta').each do |m|
       puts m.attribute('property')
       puts m
       if m.attribute('property') && m.attribute('property').to_s.match(/^og:(.+)$/i)
